@@ -5,7 +5,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.actuator       = new Actuator;
 
   this.startTiles     = 2; // dydx What is this?
-    this.primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41]; // 13 long
+    this.primes = [1002, 1003, 1005, 1007, 1011, 1013, 1016, 1018, 1024, 1028, 1030, 1035, 1039]; // 13 long
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
@@ -21,13 +21,13 @@ GameManager.prototype.restart = function () {
   this.setup();
 };
 
-// Keep playing after winning (allows going over 1849)
+// Keep playing after winning (allows going over 2048)
 GameManager.prototype.keepPlaying = function () {
   this.keepPlaying = true;
   this.actuator.continueGame(); // Clear the game won/lost message
 };
 
-// Return true if the game is lost, or has won and the user hasn't kept playing
+// Return true if the game is lost, or has won and the user has kept playing
 GameManager.prototype.isGameTerminated = function () {
   return this.over || (this.won && !this.keepPlaying);
 };
@@ -167,8 +167,8 @@ GameManager.prototype.move = function (direction) {
           // Update the score
           self.score += merged.value;
 
-          // The mighty 1849 tile dydx
-          if (merged.value === 1849) self.won = true;
+          // The mighty 2048 tile dydx
+          if (merged.value === 2048) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
